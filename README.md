@@ -1,8 +1,8 @@
 # Short examples illustrating AVX2 intrinsics for simple tasks
 
-I was surprised by the lack of simple examples using AVX and AVX2
-instructions for beginners. There doesn't seem to be a definitive book
-or even a tutorial on the subject.
+I was surprised by the lack of simple examples showing how to use AVX
+and AVX2 intrinsics. There doesn't seem to be a definitive book or
+even tutorial on the subject.
 
 O Internet, if I am wrong, please correct me! I've learned that the
 best way to get information on the internet is not to ask a question,
@@ -17,10 +17,10 @@ with many trips to the debugger and disassembler.
 I will strive to keep the problems simple and the examples short, but
 I can't promise that a simple problem won't have a complex solution.
 
-I hope I end up with something useful to others who are looking for a
-collection of self-contained code snippets. However, please remember
-that I am a beginner in the use of CPU vector instructions. I'm not
-claiming this code is exemplary.
+I hope I end up with a collection of self-contained code snippets
+that's useful to others. However, please remember that I am a beginner
+in the use of CPU vector instructions. I'm not claiming this code is
+exemplary.
 
 ## Problem 0: get the code to compile and run
 
@@ -30,7 +30,7 @@ Most CPUs sold in the last 3-4 years should support AVX2. To find out, run
 
 `cat /proc/cpuinfo | grep avx2`
 
-on Linux and
+on Linux, or
 
 `sysctl -a | grep AVX2`
 
@@ -43,7 +43,7 @@ It seems that the right header to include is `immintrin.h`, which then
 goes and includes individual headers like `avx2intrin.h`. On my
 installation, I get errors about unknown types if I include
 `avx2intrin.h` directly, as well as an error message saying "Never use
-<avx2intrin.h> directly; include <immintrin.h> instead."
+\<avx2intrin.h\> directly; include \<immintrin.h\> instead."
 
 Okay, seems pretty clear.
 
