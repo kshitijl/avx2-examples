@@ -3,7 +3,7 @@
 #include <immintrin.h>
 #include <math.h>
 
-const int N = 80;
+const int N = 83;
 
 double slow_dot_product(const double *a, const double *b) {
   double answer = 0.0;
@@ -31,7 +31,8 @@ double reduce_vector2(__m256d input) {
 
 double dot_product(const double *a, const double *b) {
   __m256d sum_vec = _mm256_set_pd(0.0, 0.0, 0.0, 0.0);
-  
+
+  /* Add up partial dot-products in blocks of 256 bits */
   for(int ii = 0; ii < N/4; ++ii) {
     __m256d x = _mm256_load_pd(a+4*ii);
     __m256d y = _mm256_load_pd(b+4*ii);
@@ -39,7 +40,13 @@ double dot_product(const double *a, const double *b) {
     sum_vec = _mm256_add_pd(sum_vec, z);
   }
 
-  return reduce_vector2(sum_vec);
+  /* Find the partial dot-product for the remaining elements after
+   * dealing with all 256-bit blocks. */
+  double final = 0.0;
+  for(int ii = N-N%4; ii < N; ++ii)
+    final += a[ii] * b[ii];
+
+  return reduce_vector2(sum_vec) + final;
 }
 
 int main() {
